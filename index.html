@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Deep Sea Project</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(
+    to bottom,
+    #87ceeb 0%,
+    #5dade2 10%,
+    #1b4f72 25%,
+    #0b1e33 50%,
+    #050d18 75%,
+    #000000 100%
+  );
+}
+/* Main ocean container */
+.ocean {
+  position: relative;
+  width: 100%;
+  height: 5000px; /* 5000px = 50 meters */
+}
+
+/* Depth ruler */
+.ruler {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 12px;
+  padding-top: 10px;
+}
+
+.depth-mark {
+  position: absolute;
+  left: 5px;
+  border-left: 2px solid white;
+  padding-left: 5px;
+}
+
+/* Creature container */
+.creature {
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+}
+
+.creature img {
+  width: 100px;
+  display: block;
+  margin: auto;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 200, 0.6));
+}
+
+.info-box {
+  display: none;
+  position: absolute;
+  top: -10px;
+  left: 110px;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.creature:hover .info-box {
+  display: block;
+}
+
+  .particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0px);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ruler" id="ruler"></div>
+
+<div class="ocean">
+
+  <!-- SAMPLE CREATURE -->
+  <div class="creature" style="top: 1000px; left: 300px;">
+    <img src="your-image-here.png">
+    <div>Giant Squid</div>
+
+    <div class="info-box">
+      Depth: 1000m<br>
+      Size: 10-13 meters<br>
+      Short description here.
+    </div>
+  </div>
+
+  <!-- NEW CREATURE -->
+  <div class="creature" style="top: 2500px; left: 600px;">
+    <img src="anglerfish.png">
+    <div>Anglerfish</div>
+
+    <div class="info-box">
+      Depth: 2500m<br>
+      Size: 20 cm<br>
+      Your description here.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Create depth marks automatically
+const ruler = document.getElementById("ruler");
+
+for (let i = 0; i <= 50; i++) {
+  let mark = document.createElement("div");
+  mark.className = "depth-mark";
+  mark.style.top = (i * 100) + "px";
+  mark.innerText = i + " m";
+  ruler.appendChild(mark);
+}
+
+  // Create floating particles
+const ocean = document.querySelector(".ocean");
+
+for (let i = 0; i < 150; i++) {
+  let particle = document.createElement("div");
+  particle.className = "particle";
+  particle.style.left = Math.random() * 100 + "%";
+  particle.style.top = Math.random() * 5000 + "px";
+  particle.style.animationDuration = (5 + Math.random() * 10) + "s";
+  ocean.appendChild(particle);
+}
+</script>
+
+</body>
+</html>
